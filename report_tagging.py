@@ -100,9 +100,9 @@ class DataTransform():
 
 
     def nan_fix(self, df, df_field, df_derived, enrich):
-        df[df_field].to_csv(('draft_tagging_data/pre-' + df_derived + '.csv'), sep=',') #write out for validation
+        df[df_field].to_csv(('report_tag_data/pre-' + df_derived + '.csv'), sep=',') #write out for validation
         df[df_field].fillna(value=enrich, inplace=True)  #edit the data set and overwrite
-        df[df_field].to_csv(('draft_tagging_data/post-'+df_derived+'.csv'), sep=',')  #write otu for validation or to use for intermediate visualization
+        df[df_field].to_csv(('report_tag_data/post-'+df_derived+'.csv'), sep=',')  #write otu for validation or to use for intermediate visualization
         return df  # return the dataframe after update
 
 
@@ -173,7 +173,7 @@ def main():
     z = CallTransform()
 
     # collect merged dat set
-    in_file = 'draft_merge_data/perf_acq_data_02-03.csv'
+    in_file = 'merge_data/perf_acq_data_17-18.csv'
     a = GetData.get_merge_loans(y, in_file)
     # print(a.shape) #developer check
 
@@ -237,7 +237,7 @@ def main():
 
 
     #write output file
-    out_file = 'draft_tagging_data/merge_data_tag_out_02-03.csv'
+    out_file = 'report_tag_data/merge_data_tag_out_17-18.csv'
     i = GetData.write_results(y, h, out_file)
 
 

@@ -8,8 +8,8 @@ import glob
 import numpy as np
 
 
-def table(df, x, y, z, fname):
-    drop = df.columns.to_list()
+def table_vintage(df, x, y, z, fname):
+    drop = df.columns.tolist()
     drop.remove(x) #reporting field, first column of table, numeric or non numeric
     drop.remove(y) #second table field
     drop.remove(z)  #thrid table field
@@ -20,11 +20,10 @@ def table(df, x, y, z, fname):
         header=dict(values=list(df2.columns),
                     fill=dict(color='#C2D4FF'),
                     align=['left'] * 5),
-        cells=dict(values=[df2.x, df2.y, df2.z],
+        cells=dict(values=[df2.VINTAGE_YEAR, df2.Total_UPB, df2.Total_Loan_Count],
                    fill=dict(color='#F5F8FF'),
                    align=['left'] * 5))
-
-    layout = dict(width=500, height=300)
+    layout = dict(width=900, height=600)
     data = [trace]
     fig = dict(data=data, layout=layout)
     py.iplot(fig, filename='styled_table')
@@ -166,7 +165,7 @@ def map_chart(df, x, y, title,fname):
     return
 
 def state_charts():
-    files_state = glob.glob('draft_groupby_data/state_bucket*')
+    files_state = glob.glob('groupby_data/state_bucket*')
     dfs = []
     for file in files_state:
         df = pd.read_csv(file)
@@ -175,11 +174,11 @@ def state_charts():
     df_all = pd.concat(dfs, axis=0, ignore_index=True)
     df_lat_long = pd.read_csv('state.csv')
     df_state = pd.concat([df_all, df_lat_long], axis=1, ignore_index=False,)
-    a = map_chart(df_state, 'PROPERTY STATE', 'Total_UPB','FNMA Mortgage Exposure By State', 'state_upb')
+    a = map_chart(df_state, 'PROPERTY STATE', 'Total_UPB','FNMA Mortgage Exposure By State', 'demo_state_upb')
     return
 
 def upb_charts():
-    files_upb = glob.glob('draft_groupby_data/upb_bucket*')
+    files_upb = glob.glob('groupby_data/upb_bucket*')
     dfs = []
     for file in files_upb:
         # name = file.replace('draft_groupby_data/', '')
@@ -189,19 +188,19 @@ def upb_charts():
         print(df)
         dfs.append(df)
     df_all = pd.concat(dfs, axis=0, ignore_index=True)
-    a = bubble_chart(df_all, 'UPB_BUCKET','LTV WA', 'upb_ltv' )
+    a = bubble_chart(df_all, 'UPB_BUCKET','LTV WA', 'demo_upb_ltv' )
     return
 
 def vintage_chart():
-    files_state = glob.glob('draft_groupby_data/vintage_bucket*')
+    files_state = glob.glob('groupby_data/vintage_bucket*')
     dfs = []
     for file in files_state:
         df = pd.read_csv(file)
         print(df)
         dfs.append(df)
     df_all = pd.concat(dfs, axis=0, ignore_index=True)
-    multi_line_scatter_chart(df_all, 'VINTAGE_YEAR','Total_UPB','Avg UPB','Total_Loan_Count', 'Total Balance ($BB)','Avg Balance ($k)','Total Loan Count (k)',"vintage-upb-lncount")
-    table(df_all, 'VINTAGE_YEAR','Total_UPB','Total_Loan_Count',"vintage-table" )
+    #multi_line_scatter_chart(df_all, 'VINTAGE_YEAR','Total_UPB','Avg UPB','Total_Loan_Count', 'Total Balance ($BB)','Avg Balance ($k)','Total Loan Count (k)',"demo-vintage-upb-lncount")
+    table_vintage(df_all, 'VINTAGE_YEAR','Total_UPB','Total_Loan_Count',"demo-vintage-table" )
 
 def main():
     plotly.tools.set_credentials_file(username='erinchurch6', api_key='fXwAuCrzutNF2zWbXAj1')

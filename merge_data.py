@@ -26,15 +26,15 @@ class GetMergeData():
 
 def main():
     y = GetMergeData()  #invoke class for fetching the data and merging it
-    acq_in_file = 'draft_multi_file_data/acq_file_02-03.csv'  #identify the file and directory of the consolidated data sets
+    acq_in_file = 'multi_file_data/acq_file_17-18.csv'  #identify the file and directory of the consolidated data sets
     a = GetMergeData.get_acq_loans(y, acq_in_file)  #collect acqusition data into a data frame
     #print(a.shape) #developer check
-    perf_in_file = 'draft_multi_file_data/perf_file_02-03.csv' #idenify file and directory fo consolidated data
+    perf_in_file = 'multi_file_data/perf_file_17-18.csv' #idenify file and directory fo consolidated data
     b = GetMergeData.get_perf_loans(y, perf_in_file)  #collect performance data into a dataframe
     #print(b.shape)  #developer check
     c = GetMergeData.merge(y, b, a)  #merge the performance and acqusition data frames
     # print(c.shape) #developer test
-    c.to_csv('draft_merge_data/perf_acq_data_02-03.csv')  #write merged data to a new file
+    c.to_csv('merge_data/perf_acq_data_17-18.csv')  #write merged data to a new file
 
 
 if __name__ =='__main__':

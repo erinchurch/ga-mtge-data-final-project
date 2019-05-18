@@ -339,7 +339,7 @@ class GroupBySummary():
 def main():
     x = CollectCompiledData()  #invoke class for collecting data
     y = GroupBySummary()  #invoke class for transforming and grouping data
-    fname = 'draft_tagging_data/merge_data_tag_out_06-07.csv'  #path for collecting file
+    fname = 'report_tag_data/merge_data_tag_out_17-18.csv'  #path for collecting file
     filter_cols = None  #filter columns out of the source file, list of strings
     filter_rows = None  #filter number of rows collected from source files, integer
     a = CollectCompiledData.files_to_df(x, fname, filter_cols, filter_rows)  #collect data
@@ -350,7 +350,7 @@ def main():
     #UPB_BUCKET
     #PROPERTY STATE
     #'MONTHLY REPORTING PERIOD'
-    by_field = 'VINTAGE_YEAR'  #typically a derived field, but could a raw field
+    by_field = 'PROPERTY STATE'  #typically a derived field, but could a raw field
     sum_list = [['Total_UPB', 'ORIGINAL UPB'], ['Total_Loan_Count', 'LOAN_COUNT']]  #list of lists, used to sum aggrgate data
     b = GroupBySummary.sum_iterate(y, a, sum_list, by_field)  # call pure some aggregeation group by, return df
     avg_list = [['Avg UPB', 'ORIGINAL UPB']]  #list of lists for pure mean or average of data, return dataframe
@@ -361,7 +361,7 @@ def main():
     e = GroupBySummary.wa_iterate_loop(y, a, wa_list, weight, by_field)  #call method for aggregation by weighted average, return data frame
     print('from main\n', e)  #developer check to monitor progress of the aggregation
     g = pd.concat([b, c, e], axis=1, ignore_index=False, sort=True)  #combine all data frames
-    fnameg = ('draft_groupby_data/vintage_bucket_06-07.csv')  #file name for output to be used for visualization
+    fnameg = ('groupby_data/state_bucket_17-18.csv')  #file name for output to be used for visualization
     j = CollectCompiledData.df_to_files(y, g, fnameg)  #export data to be used later in visualization
 
 
