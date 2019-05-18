@@ -1,15 +1,19 @@
-Welcome to the AWS CodeStar sample web service
+GA 2019 Python Final Project
 ==============================================
 
-This sample code helps get you started with a simple Python web service using
-AWS Lambda and Amazon API Gateway.
+FNMA Loan Performance Data Analysis, from consuming raw files to generating pre-specified reports.
 
-What's Here
+The Workflow & Supporting Information
 -----------
 
-This sample includes:
+This processes include:
 
 * README.md - this file
+* consolidate_files.py - given directories of raw files, this will consolidate and normalize data format.
+* merge_data.py - given the performance and acqusition data sets, join and write to a separate file for additional processing.
+* report_tagging.py - given the merged data set, add pre-specified reporting tags, or ad hoc tags to facilitate downstream report creation.
+* report_groupby.py - given the consolidated data set and report tags, generated grouped or summarized dataframes to build reports from, write them to individual files.
+* report_creation.py - given the summarized data frames, generate charts and tables that can be written directly to pdf or other image format.
 * buildspec.yml - this file is used by AWS CodeBuild to package your
   application for deployment to AWS Lambda
 * index.py - this file contains the sample Python code for the web service
